@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PlatformService.Data;
 using PlatformService.Dtos;
+using PlatformService.Models;
 using System;
 using System.Collections.Generic;
 
@@ -14,7 +15,7 @@ namespace PlatformService.Controllers
         private readonly IPlatformRepo _repo;
         private readonly IMapper _mapper;
 
-        public PlatformsController(IPlatformRepo repo,IMapper mapper)
+        public PlatformsController(IPlatformRepo repo, IMapper mapper)
         {
             _mapper = mapper;
             _repo = repo;
@@ -24,7 +25,17 @@ namespace PlatformService.Controllers
         {
             Console.WriteLine("GetPlatforms()");
             var PlatformItem = _repo.GetAllPlatforms();
-            return Ok(_mapper.Map<IEnumerable<PlatformReadDto>>(PlatformItem)); 
+            return Ok(_mapper.Map<IEnumerable<PlatformReadDto>>(PlatformItem));
         }
+        [HttpGet("{id}", Name = "GetPlatformById")]
+        public ActionResult<PlatformReadDto> GetPlatformById(int id)
+        {
+            Console.WriteLine("GetPlatformById(id)");
+            var platform = _repo.GetPlatformById(id);
+            if (platform != null)
+                return Ok(_mapper.Map<PlatformReadDto>(platform));
+            return NotFound();
+        }
+        
     }
 }
