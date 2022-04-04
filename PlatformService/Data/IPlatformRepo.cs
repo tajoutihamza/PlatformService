@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PlatformService.Data
 {
-    interface IPlatformRepo
+    public interface IPlatformRepo
     {
         bool SaveChanges();
 
