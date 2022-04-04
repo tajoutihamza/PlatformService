@@ -36,6 +36,15 @@ namespace PlatformService.Controllers
                 return Ok(_mapper.Map<PlatformReadDto>(platform));
             return NotFound();
         }
-        
+        [HttpPost]
+        public ActionResult<PlatformReadDto> CreatePlatform(PlatformCreateDto dto)
+        {
+            var platform = _mapper.Map<Platform>(dto);
+            _repo.CreatePlatform(platform);
+            _repo.SaveChanges();
+
+            var platformReadDto = _mapper.Map<PlatformReadDto>(platform);
+            return CreatedAtRoute(nameof(GetPlatformById), new { Id = platformReadDto.Id }, platformReadDto);
+        }
     }
 }
