@@ -1,0 +1,16 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: platformservice
+#  labels:
+ #   app: platformservice
+spec:
+  type: NodePort
+  selector:
+    app: platformservice
+  ports:
+  - name: platformservice
+    protocol: TCP
+    port: 80
+    targetPort: 80
+    #nodePort: 30002

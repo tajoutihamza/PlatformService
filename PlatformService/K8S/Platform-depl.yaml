@@ -1,9 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: platform-deploy
+  name: platformservice-deploy
+ # labels:
+  #  app: platformservice
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: platformservice
@@ -13,6 +15,8 @@ spec:
         app: platformservice
     spec:
       containers:
-        - name: platformservice
-          image: hamzataoujouti/k8_platformservice:latest
-          imagePullPolicy: Never
+      - name: platformservice
+        image: hamzataoujouti/k8_platformservice:latest
+        imagePullPolicy: Never
+     #   ports:
+      #  - containerPort: 80
